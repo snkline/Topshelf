@@ -32,6 +32,7 @@ namespace Topshelf.HostConfigurators
         readonly IList<HostBuilderConfigurator> _configurators;
         readonly WindowsHostSettings _settings;
         bool _commandLineApplied;
+        bool _ignoreUnknownOptions;
         EnvironmentBuilderFactory _environmentBuilderFactory;
         HostBuilderFactory _hostBuilderFactory;
         ServiceBuilderFactory _serviceBuilderFactory;
@@ -246,7 +247,8 @@ namespace Topshelf.HostConfigurators
             foreach (CommandLineConfigurator optionConfigurator in _commandLineOptionConfigurators)
                 optionConfigurator.Configure(parser);
 
-            CommandLineParserOptions.AddUnknownOptions(parser);
+            if (_ignoreUnknownOptions == false)
+                CommandLineParserOptions.AddUnknownOptions(parser);
         }
 
         static HostBuilder DefaultHostBuilderFactory(HostEnvironment environment, HostSettings settings)
@@ -257,6 +259,11 @@ namespace Topshelf.HostConfigurators
         static EnvironmentBuilder DefaultEnvironmentBuilderFactory(HostConfigurator configurator)
         {
             return new WindowsHostEnvironmentBuilder(configurator);
-        }   
+        }
+
+        public void IgnoreUnknownCommandLineOptions()
+        {
+            _ignoreUnknownOptions = true;
+        }
     }
 }

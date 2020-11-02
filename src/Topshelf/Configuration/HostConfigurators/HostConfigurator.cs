@@ -142,5 +142,7 @@ namespace Topshelf.HostConfigurators
         /// application. The default policy is to log an error and to stop the service.
         /// </summary>
         UnhandledExceptionPolicyCode UnhandledExceptionPolicy { get; set; }
+
+        void IgnoreUnknownCommandLineOptions();
   }
 }

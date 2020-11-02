@@ -632,6 +632,11 @@ namespace Topshelf.Extensions.Configuration.Tests
             {
                 throw new NotImplementedException();
             }
+
+            public void IgnoreUnknownCommandLineOptions()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
